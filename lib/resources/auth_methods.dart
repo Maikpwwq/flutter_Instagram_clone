@@ -38,25 +38,6 @@ class AuthMethods {
           photoUrl: photoUrl,
         );
         await _firestore.collection('users').doc(cred.user!.uid).set(user.toJson());
-        // before model class creation
-        // await _firestore.collection('users').doc(cred.user!.uid).set({
-        //   'username': username,
-        //   'uid': cred.user!.uid,
-        //   'email': email,
-        //   'bio': bio,
-        //   'followers': [],
-        //   'following': [],
-        //   'photoUrl': photoUrl,
-        // });
-        // personalized uid to DataBase
-        // await _firestore.collection('users').add({
-        //   'username': username,
-        //   'uid': cred.user!.uid,
-        //   'email': email,
-        //   'bio': bio,
-        //   'followers': [],
-        //   'following': [],
-        //   });
 
         res = "Success";
       }
