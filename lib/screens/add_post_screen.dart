@@ -30,6 +30,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       _isLoading = true;
     });
     try {
+      // upload to storage and db
       String res = await FirestoreMethods().uploadPost(
         _descriptionController.text,
         _file!,
@@ -44,20 +45,20 @@ class _AddPostScreenState extends State<AddPostScreen> {
         showSnackBar('Publicado!', context);
         clearImage();
       } else {
-        setState(() {
-          _isLoading = false;
-        });
         showSnackBar(res, context);
       }
     } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
       showSnackBar(e.toString(), context);
     }
   }
 
-  _selectImage(BuildContext context) async {
+  _selectImage(BuildContext parentContext) async {
     return showDialog(
-        context: context,
-        builder: (context) {
+        context: parentContext,
+        builder: (BuildContext context) {
           return SimpleDialog(
             title: const Text('Crear una publicación'),
             children: [

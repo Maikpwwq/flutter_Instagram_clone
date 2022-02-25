@@ -47,6 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _isLoading = true;
     });
+    // signup user using our authmethodds
     String res = await AuthMethods().signUpUser(
       email: _emailController.text,
       password: _passwordController.text,
@@ -55,12 +56,12 @@ class _SignupScreenState extends State<SignupScreen> {
       file: _image!,
     );
     // print(res);
-    setState(() {
-      _isLoading = false;
-    });
-    if (res != 'success') {
-      showSnackBar(res, context);
-    } else {
+    // if string returned is sucess, user has been created
+    if (res == 'success') {
+      setState(() {
+        _isLoading = false;
+      });
+      // navigate to the home screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
@@ -69,6 +70,11 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
       );
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      showSnackBar(res, context);
     }
   }
 
@@ -178,7 +184,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: primaryColor,
                           ),
                         )
-                      : const Text('Iniciar Sesión'),
+                      : const Text('Registrarse'),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
