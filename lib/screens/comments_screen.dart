@@ -4,7 +4,7 @@ import 'package:instagram_flutter/models/user.dart';
 import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:instagram_flutter/resources/firestore.methods.dart';
 import 'package:instagram_flutter/utils/colors.dart';
-import 'package:instagram_flutter/widgets/Comment_card.dart';
+import 'package:instagram_flutter/widgets/comment_card.dart';
 import 'package:provider/provider.dart';
 
 class CommentsScreen extends StatefulWidget {
