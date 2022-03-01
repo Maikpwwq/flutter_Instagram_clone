@@ -7,11 +7,11 @@ import 'package:instagram_flutter/screens/search_screen.dart';
 
 const webScreenSize = 600;
 
-const homeScreenItems = [
-  FeedScreen(),
-  SearchScreen(),
-  AddPostScreen(),
-  Text('notif'),
+List<Widget> homeScreenItems = [
+  const FeedScreen(),
+  const SearchScreen(),
+  const AddPostScreen(),
+  const Text('notifications'),
   ProfileScreen(
     uid: FirebaseAuth.instance.currentUser!.uid,
   ),
