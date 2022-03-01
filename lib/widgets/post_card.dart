@@ -34,12 +34,16 @@ class _PostCardState extends State<PostCard> {
 
   void getComments() async {
     try {
-      QuerySnapshot snap = await FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').get();
+      QuerySnapshot snap = await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.snap['postId'])
+          .collection('comments')
+          .get();
       commentLen = snap.docs.length;
     } catch (e) {
       showSnackBar(e.toString(), context);
     }
-    setState(() {    });
+    setState(() {});
   }
 
   @override
@@ -99,7 +103,11 @@ class _PostCardState extends State<PostCard> {
                           ]
                               .map(
                                 (e) => InkWell(
-                                  onTap: () {},
+                                  onTap: () async {
+                                    await FirestoreMethods()
+                                        .deletePost(widget.snap['postId']);
+                                    Navigator.of(context).pop();
+                                  },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 12,

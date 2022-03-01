@@ -10,17 +10,15 @@ class FirestoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // upload post
-  Future<String> uploadPost(
-    String description,
-    Uint8List file,
-    String uid,
-    String profileImage,
-    String username,
-  ) async {
+  Future<String> uploadPost(String description,
+      Uint8List file,
+      String uid,
+      String profileImage,
+      String username,) async {
     String res = "Ocurrio algun error";
     try {
       String photoUrl =
-          await StorageMethods().uploadImageToStorage('posts', file, true);
+      await StorageMethods().uploadImageToStorage('posts', file, true);
       String postId = const Uuid().v1();
 
       Post post = Post(
@@ -35,8 +33,8 @@ class FirestoreMethods {
       );
 
       _firestore.collection('posts').doc(postId).set(
-            post.toJson(),
-          );
+        post.toJson(),
+      );
       res = 'success';
     } catch (e) {
       res = e.toString();
@@ -65,18 +63,31 @@ class FirestoreMethods {
     try {
       if (text.isNotEmpty) {
         String commentId = const Uuid().v1();
-        await _firestore.collection('posts').doc(postId).collection('comments').doc(commentId).set({
+        await _firestore.collection('posts').doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .set({
           'profilePic': profilePic,
           'name': name,
           'uid': uid,
           'text': text,
           'commentId': commentId,
-          'datePublished':  DateTime.now(),
+          'datePublished': DateTime.now(),
         });
-        
       } else {
         print('texto vacio');
       }
+    } catch (err) {
+      print(
+        err.toString(),
+      );
+    }
+  }
+
+  // Deleting post
+  Future<void> deletePost(String postId) async {
+    try {
+      await _firestore.collection('posts').doc(postId).delete();
     } catch (err) {
       print(
         err.toString(),
